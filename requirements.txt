@@ -1,0 +1,69 @@
+Actors
+======
+
+1. Customer
+2. Driver
+3. Merchant
+
+Entities
+========
+
+1. Customer
+2. Driver
+3. Merchant
+4. Order
+5. Catalog
+6. Product
+
+Use Cases
+=========
+
+### As a Customer, I can ask a new order to a Merchant, passing the Products and my address.
+
+Input:
++ A Merchant
++ The Customer identifier
++ Product list
++ The payment method
+
+Validação:
++ Must have products
++ The payment was confirmed?
+
+Saida:
++ My Order was confirmed
++ Estimated time to arrive
++ Driver's name
+
+
+### As a Merchant, I can receive a new order from a Customer.
+
+
+
+
+
+### Eu, como um cliente, consigo fazer um pedido, enviando os itens que eu desejo
+
+
+### Eu, como loja, consigo visualizar todos os pedidos
+
+Entrada:
++ Minha identificação como loja
++ Endereço da entrega
+
+Validação
++
+
+Saida
++ A lista completa de pedidos, com destaque para os pedidos em andamento
+
+### Eu, como loja, consigo pedir um entregador
+
+Entrada
+
+Validação
++ É um endereço
+
+Saída
++ Nome do entregador
++ Tempo estimado
