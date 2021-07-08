@@ -2,20 +2,16 @@ require_relative "./lib/entities/customer"
 
 require_relative "./lib/use_cases/new_order"
 
-require_relative "./repository/memory/customer_memory_repository"
+require_relative "./lib/repository/customer_memory_repository"
 
-customer_1 = Customer.new(address: "Washington")
-customer_2 = Customer.new(address: "Seatle")
-customer_3 = Customer.new(address: "Chicago")
-
-repository = CustomerMemoryRepository.new
-repository.save(customer_1)
-repository.save(customer_2)
-repository.save(customer_3)
-
-pp repository.all
+# Customer is asking a new order, by sending the address and the products
 
 
+customer = Customer.new(address: "Seatle")
+meatz = MerchantMemoryRepository.find(name: "Meatz")
+burguer = meatz.products.find(name: "Bacon Burguer")
+
+order = NewOrder.new(customer: customer, merchant: meatz, products: [burguer]).execute
 
 
 # merchant = Struct.new(:name)
