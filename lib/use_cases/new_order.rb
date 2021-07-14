@@ -1,10 +1,12 @@
 require_relative "../entities/order"
 
 class NewOrder
-  def initialize(customer:, merchant:, products:)
+  def initialize(customer:, merchant:, products:, repository:)
+    @repository = repository
   end
 
   def execute
+    @repository.save(Order.new)
     Order.new
     # if valid_payment?
     #   # OrderRepository.save(order)
