@@ -15,6 +15,7 @@ class NewOrder
       @repository.save(order)
       @payment.execute(@customer)
       @notification.execute(order)
+      { success: true, result: order, errors: [] }
     else
       { success: false, result: nil, errors: @payment_info.errors }
     end

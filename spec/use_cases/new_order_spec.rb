@@ -37,6 +37,10 @@ RSpec.describe NewOrder do
       expect(payment_service_mock).to receive(:execute).with(an_instance_of(Customer))
       new_order
     end
+
+    it 'returns success with an order as result' do
+      expect(new_order).to include(success: true, result: an_instance_of(Order), errors: [])
+    end
   end
 
   context 'when payment information is not valid' do
