@@ -1,22 +1,42 @@
 require_relative "./lib/entities/customer"
+require_relative "./lib/entities/merchant"
+require_relative "./lib/entities/payment_info"
 
 require_relative "./lib/use_cases/new_order"
 
+require_relative "./lib/services/notification_service"
+require_relative "./lib/services/payment_service"
+
 require_relative "./lib/repository/customer_memory_repository"
+require_relative "./lib/repository/merchant_memory_repository"
+require_relative "./lib/repository/payment_memory_repository"
+require_relative "./lib/repository/order_memory_repository"
 
-# Customer is asking a new order, by sending the address and the products
+### Customer orders food from a store
+customer = Customer.new(address: 'casa do rods')
+customer_repository = CustomerMemoryRepository.new
+customer_repository.save(customer)
 
+merchant = Merchant.new(name: 'Ricco Burguer')
+merchant_repository = MerchantMemoryRepository.new
+merchant_repository.save(merchant)
 
-customer = Customer.new(address: "Seatle")
-meatz = MerchantMemoryRepository.find(name: "Meatz")
-burguer = meatz.products.find(name: "Bacon Burguer")
+payment_info = PaymentInfo.new
+payment_repository = PaymentMemoryRepository.new
+payment_repository.save(merchant)
 
-order = NewOrder.new(customer: customer, merchant: meatz, products: [burguer]).execute
+order_repository = OrderMemoryRepository.new
+notification_service = NotificationService.new
+payment_service = PaymentService.new
 
+new_order = NewOrder.new(
+  customer: customer,
+  merchant: merchant,
+  products: [],
+  payment_info: payment_info,
+  repository: order_repository,
+  notification: notification_service,
+  payment: payment_service
+).execute
 
-# merchant = Struct.new(:name)
-# product_1 = Struct.new(:name)
-
-# order = NewOrder.new(customer: customer, merchant: merchant, products: [product_1]).execute
-# puts order.driver_name
-
+puts "New order: #{new_order}"
