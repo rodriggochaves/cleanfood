@@ -21,9 +21,9 @@ merchant = Merchant.new(name: 'Ricco Burguer')
 merchant_repository = MerchantMemoryRepository.new
 merchant_repository.save(merchant)
 
-payment_info = PaymentInfo.new
+payment_info = PaymentInfo.new(payment_type: 'Credit Card')
 payment_repository = PaymentMemoryRepository.new
-payment_repository.save(merchant)
+payment_repository.save(payment_info)
 
 order_repository = OrderMemoryRepository.new
 notification_service = NotificationService.new
@@ -36,7 +36,7 @@ new_order = NewOrder.new(
   payment_info: payment_info,
   repository: order_repository,
   notification: notification_service,
-  payment: payment_service
+  payment_service: payment_service
 ).execute
 
 puts "New order: #{new_order}"
