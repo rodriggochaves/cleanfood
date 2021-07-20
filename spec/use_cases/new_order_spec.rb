@@ -18,7 +18,7 @@ RSpec.describe NewOrder do
       payment_info: payment_info,
       repository: repository_mock,
       notification: notification_service_mock,
-      payment: payment_service_mock
+      payment_service: payment_service_mock
     ).execute
   end
 

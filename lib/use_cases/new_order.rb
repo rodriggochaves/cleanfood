@@ -1,11 +1,11 @@
 require_relative "../entities/order"
 
 class NewOrder
-  def initialize(customer:, merchant:, products:, payment_info:, repository:, notification:, payment:)
+  def initialize(customer:, merchant:, products:, payment_info:, repository:, notification:, payment_service:)
     @customer = customer
     @repository = repository
     @payment_info = payment_info
-    @payment = payment
+    @payment_service = payment_service
     @notification = notification
   end
 
@@ -13,7 +13,7 @@ class NewOrder
     if @payment_info.valid?
       order = Order.new
       @repository.save(order)
-      @payment.execute(@customer)
+      @payment_service.execute(@customer)
       @notification.execute(order)
       { success: true, result: order, errors: [] }
     else
