@@ -1,7 +1,13 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    concurrent-ruby (1.1.9)
     diff-lcs (1.4.4)
+    dry-core (0.7.1)
+      concurrent-ruby (~> 1.0)
+    dry-monads (1.4.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 0.7)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
@@ -23,6 +29,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  dry-monads (~> 1.4)
   rspec (~> 3.10)
   timecop (~> 0.9.4)
 
