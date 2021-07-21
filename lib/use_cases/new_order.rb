@@ -1,6 +1,9 @@
+require 'dry/monads'
 require_relative "../entities/order"
 
 class NewOrder
+  include Dry::Monads[:result]
+
   def initialize(customer:, merchant:, products:, payment_info:, repository:, notification:, payment_service:)
     @customer = customer
     @repository = repository
@@ -13,11 +16,14 @@ class NewOrder
     if @payment_info.valid?
       order = Order.new
       @repository.save(order)
-      @payment_service.execute(@customer)
-      @notification.execute(order)
-      { success: true, result: order, errors: [] }
+        .then { @payment_service.execute(@customer) }
+        .then { @notification.execute(order) }
+
+      Success(order)
+      # { success: true, result: order, errors: [] }
     else
-      { success: false, result: nil, errors: @payment_info.errors }
+      Failure("Payment info is invalid.")
+      # { success: false, result: nil, errors: @payment_info.errors }
     end
   end
 end

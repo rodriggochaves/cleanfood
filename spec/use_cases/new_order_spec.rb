@@ -39,7 +39,11 @@ RSpec.describe NewOrder do
     end
 
     it 'returns success with an order as result' do
-      expect(new_order).to include(success: true, result: an_instance_of(Order), errors: [])
+      expect(new_order).to be_success
+    end
+
+    it 'returns success with an order as result' do
+      expect(new_order.value!).to be_an_instance_of Order
     end
   end
 
@@ -49,9 +53,11 @@ RSpec.describe NewOrder do
     end
 
     it 'returns an error with a message explaining it' do
-      expect(new_order).to eq(
-        success: false, result: nil, errors: ['credit card number is not valid']
-      )
+      expect(new_order).to be_failure
+    end
+
+    it 'returns an error with a message explaining it' do
+      expect(new_order.failure).to eq "Payment info is invalid."
     end
   end
 end
