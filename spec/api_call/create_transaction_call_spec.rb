@@ -1,42 +1,12 @@
 require_relative "../../lib/api_call/create_transaction_call"
 require_relative "../../lib/entities/credit_card"
-require_relative "../../lib/entities/customer"
-require_relative "../../lib/entities/address"
-require_relative "../../lib/entities/product"
+require_relative "../factory_helper"
 
 RSpec.describe CreateTransactionCall do
-  let(:customer) do
-    Customer.new(
-      name: "Morpheus Fishburne",
-      email: "mopheus@nabucodonozor.com",
-      cpf: "30621143049",
-      phone_number: "+5511999998888",
-      birthday: "1965-01-01",
-      address: address
-    )
-  end
-
-  let(:address) do
-    Address.new(
-      country: "br",
-      state: "sp",
-      city: "Cotia",
-      neighborhood: "Rio Cotia",
-      street: "Rua Matrix",
-      street_number: "9999",
-      zipcode: "06714360"
-    )
-  end
-
-  let(:products) do
-    [
-      Product.new(
-        title: "Red pill",
-        unit_price: 1000,
-        quantity: 1
-      )
-    ]
-  end
+  let(:customer) { build(:customer) }
+  let(:address) { build(:address) }
+  let(:products) { build_list(:product, 1) }
+  let(:credit_card) { build(:credit_card) }
 
   let(:params) do
     {
@@ -44,12 +14,7 @@ RSpec.describe CreateTransactionCall do
       billing_address: "",
       shipping_address: "",
       products: products,
-      credit_card: CreditCard.new(
-        number: "4111111111111111",
-        cvv: "123",
-        expiration_date: "0922",
-        holder_name: "Morpheus Fishburne",
-      )
+      credit_card: credit_card
     }
   end
 

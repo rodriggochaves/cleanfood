@@ -1,6 +1,6 @@
 require_relative "../../lib/repository/customer_memory_repository"
-require_relative "../../lib/entities/customer"
-require_relative "../../lib/entities/address"
+
+require_relative "../factory_helper"
 
 RSpec.describe CustomerMemoryRepository do
   subject(:customer_repository) { described_class.new }
@@ -20,55 +20,18 @@ RSpec.describe CustomerMemoryRepository do
   end
 
   describe "the class implementation" do
-    let(:address) do
-      Address.new(
-        country: "br",
-        state: "sp",
-        city: "Cotia",
-        neighborhood: "Rio Cotia",
-        street: "Rua Matrix",
-        street_number: "9999",
-        zipcode: "06714360"
-      )
-    end
-
-    let(:customer) do
-      Customer.new(
-        name: "Morpheus Fishburne",
-        email: "mopheus@nabucodonozor.com",
-        cpf: "30621143049",
-        phone_number: "+5511999998888",
-        birthday: "1965-01-01",
-        address: address
-      )
-    end
+    let(:address) { build(:address) }
+    let(:customer) { build(:customer) }
 
     before do
       customer_repository.destroy_all
     end
 
     it "#all returns all customers stored" do
-      customer_1 = Customer.new(
-        name: "Morpheus Fishburne",
-        email: "mopheus@nabucodonozor.com",
-        cpf: "30621143049",
-        phone_number: "+5511999998888",
-        birthday: "1965-01-01",
-        address: address
-      )
-      customer_2 = Customer.new(
-        name: "Fishburne Morpheus",
-        email: "mopheus@nabucodonozor.com",
-        cpf: "30621143049",
-        phone_number: "+5511999998888",
-        birthday: "1965-01-01",
-        address: address
-      )
+      customers = build_list(:customer, 2)
+      customers.map { |customer| customer_repository.save(customer) }
 
-      customer_repository.save(customer_1)
-      customer_repository.save(customer_2)
-
-      expect(customer_repository.all).to match_array([customer_2, customer_1])
+      expect(customer_repository.all).to match_array(customers)
     end
 
     it "#save pushes a new customer to the list" do
