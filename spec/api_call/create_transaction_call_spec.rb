@@ -107,5 +107,13 @@ RSpec.describe CreateTransactionCall do
         }))
       end
     end
+
+    context "when the request is success" do
+      it "returns the body of the request" do
+        expect(create_transaction_call).to eq({
+          status: "paid"
+        })
+      end
+    end
   end
 end

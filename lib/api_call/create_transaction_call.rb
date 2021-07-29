@@ -1,7 +1,9 @@
+require 'json'
+
 class CreateTransactionCall
   URL = "https://api.pagar.me/1/transactions".freeze
 
-  attr_reader :params
+  attr_reader :params, :response
 
   def initialize(http_client:, params:, headers: {})
     @http_client = http_client
@@ -10,10 +12,19 @@ class CreateTransactionCall
   end
 
   def execute
-    @http_client.post(url: URL, params: payload, headers: @headers)
+    @response = @http_client.post(url: URL, params: payload, headers: @headers)
+    build_response
   end
 
-  private def payload
+  private
+
+  def build_response
+    {
+      status: JSON.parse(response.body)["status"]
+    }
+  end
+
+  def payload
     {
       card_number: params[:credit_card].number,
       card_cvv: params[:credit_card].cvv,
@@ -57,7 +68,7 @@ class CreateTransactionCall
     }
   end
 
-  private def items
+  def items
     params[:products].map do |product|
       {
         title: product.title,

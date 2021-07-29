@@ -1,3 +1,9 @@
+class Response
+  def body
+    { status: "paid" }.to_json
+  end
+end
+
 class HttpClientMock
   @@requests = []
 
@@ -8,6 +14,8 @@ class HttpClientMock
       headers: headers
     }
     @@requests << new_request
+
+    Response.new
   end
 
   def last_request
