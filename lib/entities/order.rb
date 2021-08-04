@@ -1,8 +1,9 @@
 class Order
-  attr_reader :merchant
+  attr_reader :merchant, :items
 
-  def initialize(merchant: )
+  def initialize(merchant:, products: )
     @merchant = merchant
+    @products = products
   end
 
   def confirmed?

@@ -7,6 +7,7 @@ class NewOrder
   def initialize(customer:, merchant:, products:, payment_info:, repository:, notification:, payment_service:)
     @customer = customer
     @merchant = merchant
+    @products = products
     @repository = repository
     @payment_info = payment_info
     @payment_service = payment_service
@@ -15,7 +16,7 @@ class NewOrder
 
   def execute
     if @payment_info.valid?
-      order = Order.new(merchant: @merchant)
+      order = Order.new(merchant: @merchant, products: @products)
       @repository.save(order)
         .then { @payment_service.execute(@customer) }
         .then { @notification.execute(order) }
