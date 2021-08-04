@@ -1,5 +1,6 @@
 require_relative "../../lib/api_call/create_transaction_call"
 require_relative "../../lib/api_call/http_client_mock"
+require_relative "../../lib/api_call/response_mock"
 require_relative "../../lib/entities/credit_card"
 require_relative "../factory_helper"
 
@@ -23,6 +24,12 @@ RSpec.describe CreateTransactionCall do
 
   subject(:create_transaction_call) do
     described_class.new(params: params, http_client: http_client).execute
+  end
+
+  before do
+    response = Response.new(body: { status: "paid" })
+
+    http_client.mock_responses(response: response)
   end
 
   describe "#execute" do
