@@ -1,5 +1,8 @@
 class Order
-  def initialize
+  attr_reader :merchant
+
+  def initialize(merchant: )
+    @merchant = merchant
   end
 
   def confirmed?
