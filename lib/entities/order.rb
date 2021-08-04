@@ -1,5 +1,5 @@
 class Order
-  attr_reader :merchant, :items
+  attr_reader :merchant, :products
 
   def initialize(merchant:, products: )
     @merchant = merchant
