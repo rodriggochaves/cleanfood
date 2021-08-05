@@ -18,7 +18,7 @@ RSpec.describe NewOrder do
       merchant: nil,
       products: nil,
       payment_info: payment_info,
-      repository: repository_mock,
+      order_repository: repository_mock,
       notification: notification_service_mock,
       payment_service: payment_service_mock
     ).execute
