@@ -12,6 +12,10 @@ RSpec.describe GetMerchant do
     repository.save(merchant)
   end
 
+  after do
+    repository.destroy_all
+  end
+
   context 'when ID exists' do
     subject(:get_merchant) { GetMerchant.new(id: merchant.id, repository: repository).execute }
 
