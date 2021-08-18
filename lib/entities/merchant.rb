@@ -14,8 +14,7 @@ class Merchant
     @address =  address
   end
 
-  def status
-    current_time  = Time.now
+  def status(current_time: )
     if current_time > to_datetime(open_time) && current_time < to_datetime(close_time)
       "available"
     else
