@@ -1,5 +1,3 @@
-
-
 class MerchantMemoryRepository
   @@store = []
 
@@ -9,6 +7,10 @@ class MerchantMemoryRepository
 
   def all
     @@store
+  end
+
+  def find(id:)
+    @@store.find { |merchant| merchant.id == id }
   end
 
   def find_by_name(name)
