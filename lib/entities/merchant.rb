@@ -1,5 +1,5 @@
 class Merchant
-  attr_reader :id, :name
+  attr_reader :id, :name, :description, :average_ticket, :type, :open_time, :close_time, :address
 
   def initialize(id:, name:, description:, average_ticket:, type:, open_time:, close_time:, address:)
     @id = id

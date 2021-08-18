@@ -23,8 +23,12 @@ RSpec.describe GetMerchant do
       expect(get_merchant).to be_success
     end
 
-    it 'expects to return a merchant' do
-      expect(get_merchant.value!).to eql(merchant)
+    it 'expects to return the merchant attributes' do
+      expect(get_merchant.value!).to match(hash_including(attributes_for(:merchant)))
+    end
+
+    it 'expects to be available' do
+      expect(get_merchant.value!).to have_key(:status)
     end
   end
 
