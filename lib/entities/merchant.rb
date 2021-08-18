@@ -15,7 +15,7 @@ class Merchant
   end
 
   def status(current_time: )
-    if current_time > to_datetime(open_time) && current_time < to_datetime(close_time)
+    if available?(current_time)
       "available"
     else
       "unavailable"
@@ -23,6 +23,10 @@ class Merchant
   end
 
   private
+
+  def available?(current_time)
+    current_time > to_datetime(open_time) && current_time < to_datetime(close_time)
+  end
 
   def to_datetime(time)
     Time.parse(time)
