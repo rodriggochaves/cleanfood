@@ -7,9 +7,9 @@ FactoryBot.define do
     name { "Ricco" }
     description { "Very expensive hamburguer" }
     average_ticket { 50.0 }
-    type { 'restaurant' }
-    open_time { '17:00' }
-    close_time { '23:00' }
+    type { "restaurant" }
+    open_time { "2021-01-01T17:00:00+00:00" }
+    close_time { "2021-01-01T23:00:00+00:00" }
     address { "some complex address in the future" }
 
     initialize_with do
