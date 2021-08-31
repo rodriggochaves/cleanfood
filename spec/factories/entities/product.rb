@@ -3,12 +3,12 @@ require_relative "../../../lib/entities/product"
 
 FactoryBot.define do
   factory :product do
-    title { "Red pill" }
+    name { "Red pill" }
     unit_price { 1000 }
 
     initialize_with do
       new(
-        title: title,
+        name: name,
         unit_price: unit_price,
       )
     end

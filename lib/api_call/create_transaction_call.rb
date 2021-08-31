@@ -71,7 +71,7 @@ class CreateTransactionCall
   def items
     params[:products].map do |product|
       {
-        title: product.title,
+        title: product.name,
         unit_price: product.unit_price
       }
     end

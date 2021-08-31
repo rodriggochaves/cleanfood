@@ -2,28 +2,26 @@ require 'dry/monads'
 require_relative "../entities/order"
 
 class NewOrder
+  attr_reader :merchant, :product_list
+
   include Dry::Monads[:result]
 
-  def initialize(customer:, merchant:, products:, payment_info:, order_repository:, notification:, payment_service:)
+  def initialize(customer:, merchant:, product_list:)
     @customer = customer
     @merchant = merchant
-    @products = products
-    @order_repository = order_repository
-    @payment_info = payment_info
-    @payment_service = payment_service
-    @notification = notification
+    @product_list = product_list
   end
 
   def execute
-    if @payment_info.valid?
-      order = Order.new(merchant: @merchant, products: @products)
-      @payment_service.execute(@customer)
-        .then { @order_repository.save(order) }
-        .then { @notification.execute(order) }
+    Success(new_order)
+  end
 
-      Success(order)
-    else
-      Failure("Payment info is invalid.")
-    end
+  private
+
+  def new_order
+    Order.new(
+      product_list: product_list,
+      merchant: merchant
+    )
   end
 end
