@@ -1,5 +1,6 @@
 require_relative "../../lib/repository/merchant_memory_repository"
 require_relative "../../lib/entities/merchant"
+require_relative "../factory_helper"
 
 RSpec.describe MerchantMemoryRepository do
   subject(:merchant_repository) { described_class.new }
@@ -28,8 +29,8 @@ RSpec.describe MerchantMemoryRepository do
     end
 
     it "#all returns all merchant stored" do
-      merchant_1 = Merchant.new(name: "Meatz")
-      merchant_2 = Merchant.new(name: "Ricco")
+      merchant_1 = build(:merchant, name: "Meatz")
+      merchant_2 = build(:merchant, name: "Ricco")
 
       merchant_repository.save(merchant_1)
       merchant_repository.save(merchant_2)
@@ -38,18 +39,18 @@ RSpec.describe MerchantMemoryRepository do
     end
 
     it "#save pushes a new merchant to the list" do
-      merchant = Merchant.new(name: "Seatle")
+      merchant = build(:merchant, name: "Seatle")
       expect { merchant_repository.save(merchant) }.to change { merchant_repository.all.count }.by(1)
     end
 
     it "#destroy_all sets store as an empty array" do
-      merchant_repository.save(Merchant.new(name: "Meatz"))
+      merchant_repository.save(build(:merchant, name: "Seatle"))
       merchant_repository.destroy_all
       expect(merchant_repository.all).to eq([])
     end
 
     it "#find_by_name returns the merchant with a specific name" do
-      merchant = Merchant.new(name: "Meatz")
+      merchant = build(:merchant, name: "Meatz")
       merchant_repository.save(merchant)
 
       expect(merchant_repository.find_by_name("Meatz")).to eq(merchant)

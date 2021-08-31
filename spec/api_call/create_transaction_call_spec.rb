@@ -107,8 +107,7 @@ RSpec.describe CreateTransactionCall do
           items: [
             {
               title: "Red pill",
-              unit_price: 1000,
-              quantity: 1
+              unit_price: 1000
             }
           ]
         }))

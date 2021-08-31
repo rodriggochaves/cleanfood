@@ -72,8 +72,7 @@ class CreateTransactionCall
     params[:products].map do |product|
       {
         title: product.title,
-        unit_price: product.unit_price,
-        quantity: product.quantity
+        unit_price: product.unit_price
       }
     end
   end
