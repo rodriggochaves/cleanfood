@@ -1,8 +1,8 @@
 class Product
-  attr_reader :title, :unit_price, :quantity
+  attr_reader :name, :unit_price, :quantity
 
-  def initialize(title: ,unit_price:)
-    @title = title
+  def initialize(name: ,unit_price:)
+    @name = name
     @unit_price = unit_price
   end
 end

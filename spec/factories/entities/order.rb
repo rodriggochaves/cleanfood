@@ -4,12 +4,12 @@ require_relative "../../../lib/entities/order"
 FactoryBot.define do
   factory :order do
     merchant
-    products { build_list(:product, 2) }
+    product_list { build_list(:product, 2) }
 
     initialize_with do
       new(
         merchant: merchant,
-        products: products
+        product_list: product_list
       )
     end
   end
